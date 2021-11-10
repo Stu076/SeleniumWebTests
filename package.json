@@ -1,0 +1,14 @@
+{
+    "scripts": {
+        "testFAQFilter": "mocha testFAQFilter.js --timeout 0",
+        "testBlogMenu": "mocha testBlogMenu.js --timeout 0",
+        "testApplyNews": "mocha testApplyNews.js --timeout 0"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "chromedriver": "^95.0.0",
+        "mocha": "^9.1.3",
+        "selenium-webdriver": "^4.0.0"
+    }
+}
