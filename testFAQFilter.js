@@ -12,6 +12,16 @@ describe('Test FAQ filter', () => {
         'what-are-bitcoin-bitcoin-cash-ethereum-litecoin-and-ripple-xrp'
     ];
 
+    async function takeScreenshot(name) {
+        await driver.takeScreenshot().then(
+            (image) => {
+                require('fs').writeFileSync('images/' + name + '.png', image, 'base64', (err) => {
+                    console.log(err);
+                });
+            }
+        );
+    }
+
     it('should filter out the questions/answers that contain bitcoin', async () => {
         await driver.get('https://bisonapp.com/en/questions');
         await driver.sleep(1000);
@@ -25,6 +35,8 @@ describe('Test FAQ filter', () => {
         .then(function (ids) {
             gotIds = ids;
         });
+
+        await takeScreenshot('faqFilter');
 
         expect(gotIds).to.eql(shouldBeDisplayedIds);
     });
