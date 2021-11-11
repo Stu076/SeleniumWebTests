@@ -1,8 +1,8 @@
 {
     "scripts": {
-        "testFAQFilter": "mocha testFAQFilter.js --timeout 0",
-        "testBlogMenu": "mocha testBlogMenu.js --timeout 0",
-        "testApplyNews": "mocha testApplyNews.js --timeout 0"
+        "testFAQFilter": "mocha tests/testFAQFilter.js --timeout 0",
+        "testBlogMenu": "mocha tests/testBlogMenu.js --timeout 0",
+        "testApplyNews": "mocha tests/testApplyNews.js --timeout 0"
     },
     "dependencies": {},
     "devDependencies": {
