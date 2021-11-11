@@ -1,6 +1,6 @@
 const { Builder, By, Key, promise} = require('selenium-webdriver');
 const { expect } = require('chai');
-const { checkIfImagesDirExistsAndMakeIt, saveImage } = require('./images');
+const { checkIfImagesDirExistsAndMakeIt, saveImage } = require('../lib/images');
 
 describe('Test FAQ filter', () => {
     const driver = new Builder().forBrowser('chrome').build();
