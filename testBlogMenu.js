@@ -1,23 +1,19 @@
 const { Builder, By} = require('selenium-webdriver');
 const { expect } = require('chai');
+const { checkIfImagesDirExistsAndMakeIt, saveImage } = require('./images');
 
 describe('Test blog menu', () => {
     const driver = new Builder().forBrowser('chrome').build();
     
     before(async () => {
+        checkIfImagesDirExistsAndMakeIt();
         await driver.get('https://bisonapp.com/en/blog/');
     });
 
     after(async () => driver.quit());
 
     async function takeScreenshot(name) {
-        await driver.takeScreenshot().then(
-            (image) => {
-                require('fs').writeFileSync('images/' + name + '.png', image, 'base64', (err) => {
-                    console.log(err);
-                });
-            }
-        );
+        await driver.takeScreenshot().then((image) => saveImage(name, image));
     }
 
     it('should open archive of BISON-inside', async () => {

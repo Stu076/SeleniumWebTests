@@ -1,5 +1,6 @@
 const { Builder, By, Key, promise} = require('selenium-webdriver');
 const { expect } = require('chai');
+const { checkIfImagesDirExistsAndMakeIt, saveImage } = require('./images');
 
 describe('Test FAQ filter', () => {
     const driver = new Builder().forBrowser('chrome').build();
@@ -12,14 +13,12 @@ describe('Test FAQ filter', () => {
         'what-are-bitcoin-bitcoin-cash-ethereum-litecoin-and-ripple-xrp'
     ];
 
+    before(() => checkIfImagesDirExistsAndMakeIt());
+
+    after(async () => driver.quit());
+
     async function takeScreenshot(name) {
-        await driver.takeScreenshot().then(
-            (image) => {
-                require('fs').writeFileSync('images/' + name + '.png', image, 'base64', (err) => {
-                    console.log(err);
-                });
-            }
-        );
+        await driver.takeScreenshot().then((image) => saveImage(name, image));
     }
 
     it('should filter out the questions/answers that contain bitcoin', async () => {
@@ -40,6 +39,4 @@ describe('Test FAQ filter', () => {
 
         expect(gotIds).to.eql(shouldBeDisplayedIds);
     });
-
-    after(async () => driver.quit());
 });

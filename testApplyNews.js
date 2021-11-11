@@ -1,17 +1,16 @@
 const { Builder, By, Key} = require('selenium-webdriver');
 const { expect } = require('chai');
+const { checkIfImagesDirExistsAndMakeIt, saveImage } = require('./images');
 
 describe('Test apply to news letter', () => {
     const driver = new Builder().forBrowser('chrome').build();
 
+    before(() => checkIfImagesDirExistsAndMakeIt());
+
+    after(async () => driver.quit());
+
     async function takeScreenshot(name) {
-        await driver.takeScreenshot().then(
-            (image) => {
-                require('fs').writeFileSync('images/' + name + '.png', image, 'base64', (err) => {
-                    console.log(err);
-                });
-            }
-        );
+        await driver.takeScreenshot().then((image) => saveImage(name, image));
     }
 
     it('should apply to the newsletter', async () => {
@@ -55,6 +54,4 @@ describe('Test apply to news letter', () => {
         
         expect(subject).to.equal('BISONews - Confirm your subsrciption!');
     });
-
-    after(async () => driver.quit());
 });
